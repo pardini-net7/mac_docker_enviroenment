@@ -1,0 +1,11 @@
+mariadb:
+  build: .
+  container_name: mariadb
+  network_mode: bridge
+  restart: always
+  volumes:
+    - "/Users/max2thousand/www/mariadb/:/var/lib/mysql/:delegated"
+  ports:
+    - "3306:3306"
+  environment:
+    - MYSQL_ROOT_PASSWORD=root

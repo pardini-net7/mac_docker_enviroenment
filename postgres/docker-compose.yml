@@ -1,0 +1,20 @@
+version: '3'
+services:
+  postgres_postgis:
+    restart: always
+    build: .
+    container_name: postgres
+    network_mode: bridge
+#    expose:
+#      - "5432"
+    ports:
+      - "5432:5432"
+#    environment:
+#      POSTGRES_PASSWORD: postgres
+#      POSTGRES_USER: postgres
+#      POSTGRES_DB: postgres
+    volumes:
+      - "/Users/max2thousand/www/postgres/logs:/var/log/postgresql:delegated"
+      - "/Users/max2thousand/www/postgres/backups:/backups"
+      - "/Users/max2thousand/www/postgres/data:/var/lib/postgresql/data:delegated"
+    #command: ./root/initdb.sh ras ras ras

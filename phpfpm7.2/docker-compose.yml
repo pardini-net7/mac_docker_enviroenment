@@ -1,0 +1,27 @@
+version: '3.5'
+
+services:
+  phpfpm_php7:
+    user: root
+    build: .
+    restart: always
+    container_name: phpfpm_php7
+    network_mode:
+      bridge
+    ports:
+      - 19000:9000
+    external_links:
+      - postgres
+      - mariadb
+      - elasticsearch
+    volumes:
+      - "/Users/max2thousand/www/php71:/var/www/html:delegated"
+      - "/Users/max2thousand/www/php_logs:/var/log:delegated"
+    environment:
+      - PHP_XDEBUG=1
+      - PHP_XDEBUG_DEFAULT_ENABLE=1
+      - PHP_XDEBUG_REMOTE_HOST=host.docker.internal # your local docker0 IP
+      - PHP_XDEBUG_REMOTE_CONNECT_BACK=0
+      - PHP_XDEBUG_IDEKEY=VSCODE
+      - PHP_XDEBUG_REMOTE_AUTOSTART=0
+      - PHP_XDEBUG_REMOTE_LOG=/var/log/xdebug.log

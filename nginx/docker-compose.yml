@@ -1,0 +1,16 @@
+version: '3.5'
+
+services:
+  nginx:
+    user: root
+    build: .
+    restart: always
+    container_name: nginx
+    network_mode:
+      bridge
+    ports:
+      - 80:80
+    external_links:
+      - phpfpm_php7
+    volumes:
+      - "/Users/max2thousand/www/php71:/var/www/html:delegated"

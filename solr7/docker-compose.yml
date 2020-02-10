@@ -1,0 +1,7 @@
+solr:
+  build: .
+  container_name: solr7
+  volumes:
+    - "/Users/max2thousand/www/solr7/:/opt/solr/server/solr"
+  ports:
+    - "8985:8983"

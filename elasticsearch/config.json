@@ -1,0 +1,6 @@
+{ "namespaces": {
+    "sardpen.struttura": {
+      "rename": "struttura._doc"
+    },
+  }
+}
