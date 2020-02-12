@@ -4,7 +4,5 @@ geoserver:
   ports:
     - "8600:8080"
   restart: on-failure
-  env_file:
-    - docker-env/geoserver.env
   external_links:
     - elasticsearch:elasticsearch

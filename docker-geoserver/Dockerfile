@@ -56,7 +56,14 @@ ENV \
     #-XX:+UseConcMarkSweepGC use this rather than parallel GC?
     ## Unset Java related ENVs since they may change with Oracle JDK
     JAVA_VERSION= \
-    JAVA_DEBIAN_VERSION=
+    JAVA_DEBIAN_VERSION= \
+    GEOSERVER_DATA_DIR=/opt/geoserver/data_dir \
+    ENABLE_JSONP=true \
+    MAX_FILTER_RULES=20 \
+    OPTIMIZE_LINE_WIDTH=false \
+    FOOTPRINTS_DATA_DIR=/opt/footprints_dir \
+    GEOWEBCACHE_CACHE_DIR=/opt/geoserver/data_dir/gwc \
+    GEOSERVER_ADMIN_PASSWORD=myawesomegeoserver
 
 WORKDIR /scripts
 RUN mkdir -p ${GEOSERVER_DATA_DIR}
