@@ -30,7 +30,7 @@ RUN set -e \
     apt-get -y update \
     #Install extra fonts to use with sld font markers
     apt-get install -y fonts-cantarell lmodern ttf-aenigma ttf-georgewilliams ttf-bitstream-vera ttf-sjfonts tv-fonts \
-        build-essential libapr1-dev libssl-dev default-jdk \
+    build-essential libapr1-dev libssl-dev default-jdk \
     # Set JAVA_HOME to /usr/lib/jvm/default-java and link it to OpenJDK installation
     && ln -s /usr/lib/jvm/java-8-openjdk-amd64 /usr/lib/jvm/default-java \
     && (echo "Yes, do as I say!" | apt-get remove --force-yes login) \
@@ -49,14 +49,14 @@ ENV \
     MAX_FILTER_RULES=20 \
     OPTIMIZE_LINE_WIDTH=false \
     GEOSERVER_OPTS="-Djava.awt.headless=true -server -Xms${INITIAL_MEMORY} -Xmx${MAXIMUM_MEMORY} -Xrs -XX:PerfDataSamplingInterval=500 \
-       -Dorg.geotools.referencing.forceXY=true -XX:SoftRefLRUPolicyMSPerMB=36000 -XX:+UseParallelGC -XX:NewRatio=2 \
-       -XX:+CMSClassUnloadingEnabled -Dfile.encoding=UTF8 -Duser.timezone=GMT -Djavax.servlet.request.encoding=UTF-8 \
-       -Djavax.servlet.response.encoding=UTF-8 -Duser.timezone=GMT -Dorg.geotools.shapefile.datetime=true \
-       -Dorg.geotools.shapefile.datetime=true -Ds3.properties.location=/opt/geoserver/data_dir/s3.properties " \
-       #-XX:+UseConcMarkSweepGC use this rather than parallel GC?
+    -Dorg.geotools.referencing.forceXY=true -XX:SoftRefLRUPolicyMSPerMB=36000 -XX:+UseParallelGC -XX:NewRatio=2 \
+    -XX:+CMSClassUnloadingEnabled -Dfile.encoding=UTF8 -Duser.timezone=GMT -Djavax.servlet.request.encoding=UTF-8 \
+    -Djavax.servlet.response.encoding=UTF-8 -Duser.timezone=GMT -Dorg.geotools.shapefile.datetime=true \
+    -Dorg.geotools.shapefile.datetime=true -Ds3.properties.location=/opt/geoserver/data_dir/s3.properties " \
+    #-XX:+UseConcMarkSweepGC use this rather than parallel GC?
     ## Unset Java related ENVs since they may change with Oracle JDK
     JAVA_VERSION= \
-    JAVA_DEBIAN_VERSION= 
+    JAVA_DEBIAN_VERSION=
 
 WORKDIR /scripts
 RUN mkdir -p ${GEOSERVER_DATA_DIR}
@@ -67,6 +67,7 @@ ADD scripts /scripts
 RUN chmod +x /scripts/*.sh
 ADD scripts/controlflow.properties $GEOSERVER_DATA_DIR
 ADD scripts/sqljdbc4-4.0.jar $CATALINA_HOME/webapps/geoserver/WEB-INF/lib/
+ADD scripts/elasticgeo.jar $CATALINA_HOME/webapps/geoserver/WEB-INF/lib/
 
 RUN /scripts/setup.sh \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*  \

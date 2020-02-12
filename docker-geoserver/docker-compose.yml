@@ -1,11 +1,10 @@
 geoserver:
-  image: kartoza/geoserver:2.15.0
-  volumes:
-    - geoserver-data:/opt/geoserver/data_dir
+  build: .
+  restart: always
   ports:
     - "8600:8080"
   restart: on-failure
   env_file:
     - docker-env/geoserver.env
   external_links:
-    - elastic:elastic
+    - elasticsearch:elasticsearch
