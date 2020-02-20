@@ -5,6 +5,8 @@ RUN apt-get update && apt-get install -y \
         mysql-client
 #Copy my.cnf with all the settings
 ADD ./config/my.cnf /etc/mysql/my.cnf
+USER root
+RUN chown -R 999:999 /var/lib/mysql
 EXPOSE 3306
 
 

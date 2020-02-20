@@ -1,11 +1,22 @@
-mariadb:
-  build: .
-  container_name: mariadb
-  network_mode: bridge
-  restart: always
-  volumes:
-    - "/Users/max2thousand/www/mariadb/:/var/lib/mysql/:delegated"
-  ports:
-    - "3306:3306"
-  environment:
-    - MYSQL_ROOT_PASSWORD=root
+version: "3.7"
+volumes:
+  nfsmount:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=host.docker.internal,rw,nolock,hard,nointr,nfsvers=3
+      device: ":/Users/max2thousand/www/mariadb"
+      com.docker.owner: "999:999"
+services:
+  mariadb:
+    build: .
+    container_name: mariadb
+    network_mode: bridge
+    restart: always
+    volumes:
+      - "nfsmount:/var/lib/mysql/:delegated"
+      - "./startup.sh:/startup.sh"
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root

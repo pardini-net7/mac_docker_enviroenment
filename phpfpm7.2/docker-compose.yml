@@ -1,22 +1,33 @@
-version: '3.5'
-
+version: "3.7"
+volumes:
+  nfsmount:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=host.docker.internal,rw,nolock,hard,nointr,nfsvers=3
+      device: ":/Users/max2thousand/www/php71"
+  nfsmount2:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=host.docker.internal,rw,nolock,hard,nointr,nfsvers=3
+      device: ":/Users/max2thousand/www/php_logs"
 services:
   phpfpm_php7:
     user: root
     build: .
     restart: always
     container_name: phpfpm_php7
-    network_mode:
-      bridge
+    network_mode: bridge
     ports:
       - 19000:9000
     external_links:
       - postgres
       - mariadb
-      - elasticsearch
+      - solr7
     volumes:
-      - "/Users/max2thousand/www/php71:/var/www/html:delegated"
-      - "/Users/max2thousand/www/php_logs:/var/log:delegated"
+      - "nfsmount:/var/www/html:delegated"
+      - "nfsmount2:/var/log:delegated"
     environment:
       - PHP_XDEBUG=1
       - PHP_XDEBUG_DEFAULT_ENABLE=1

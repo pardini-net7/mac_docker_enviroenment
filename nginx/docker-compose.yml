@@ -1,16 +1,21 @@
-version: '3.5'
-
+version: "3.7"
+volumes:
+  nfsmountnginx:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=host.docker.internal,rw,nolock,hard,nointr,nfsvers=3
+      device: ":/Users/max2thousand/www/php71"
 services:
   nginx:
     user: root
     build: .
     restart: always
     container_name: nginx
-    network_mode:
-      bridge
+    network_mode: bridge
     ports:
       - 80:80
     external_links:
       - phpfpm_php7
     volumes:
-      - "/Users/max2thousand/www/php71:/var/www/html:delegated"
+      - "nfsmountnginx:/var/www/html:delegated"
