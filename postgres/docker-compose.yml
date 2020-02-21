@@ -1,20 +1,41 @@
-version: '3'
+version: "3.7"
+volumes:
+  nfsmountpostgres1:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=host.docker.internal,rw,nolock,hard,nointr,nfsvers=3
+      device: ":/Users/max2thousand/www/postgres/logs"
+
+  nfsmountpostgres2:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=host.docker.internal,rw,nolock,hard,nointr,nfsvers=3
+      device: ":/Users/max2thousand/www/postgres/backups"
+
+  nfsmountpostgres3:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=host.docker.internal,rw,nolock,hard,nointr,nfsvers=3
+      device: ":/Users/max2thousand/www/postgres/data"
 services:
   postgres_postgis:
     restart: always
     build: .
     container_name: postgres
     network_mode: bridge
-#    expose:
-#      - "5432"
+    #    expose:
+    #      - "5432"
     ports:
       - "5432:5432"
-#    environment:
-#      POSTGRES_PASSWORD: postgres
-#      POSTGRES_USER: postgres
-#      POSTGRES_DB: postgres
+    #    environment:
+    #      POSTGRES_PASSWORD: postgres
+    #      POSTGRES_USER: postgres
+    #      POSTGRES_DB: postgres
     volumes:
-      - "/Users/max2thousand/www/postgres/logs:/var/log/postgresql:delegated"
-      - "/Users/max2thousand/www/postgres/backups:/backups"
-      - "/Users/max2thousand/www/postgres/data:/var/lib/postgresql/data:delegated"
+      - "nfsmountpostgres1:/var/log/postgresql:delegated"
+      - "nfsmountpostgres2:/backups"
+      - "nfsmountpostgres3:/var/lib/postgresql/data:delegated"
     #command: ./root/initdb.sh ras ras ras

@@ -12,11 +12,24 @@ ARG NEW_DB_USER_PASSWORD=ras
 FROM postgres:${PSQL_VERSION}
 
 #   Do everything as root
-USER root
 
 #   Add some files to postgres_postgis custom docker image
 ADD initdb.sh /root/initdb.sh
 ADD bashrc /root/.bashrc
+
+ENV USER=wodby
+ENV UID=501
+ENV GID=dialout
+
+RUN adduser \
+    --disabled-password \
+    --gecos "" \
+    --home "$(pwd)" \
+    --ingroup "$GID" \
+    --no-create-home \
+    --uid "$UID" \
+    "$USER"
+
 
 #   Install postgis and vim, clear aptitude cache and set initial script as executable
 RUN build_packages="vim postgis" \
@@ -24,3 +37,4 @@ RUN build_packages="vim postgis" \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     && chmod u+x /root/initdb.sh
 
+USER wodby
