@@ -1,7 +1,17 @@
-solr:
-  build: .
-  container_name: solr7
-  volumes:
-    - "/Users/max2thousand/www/solr7/:/opt/solr/server/solr"
-  ports:
-    - "8985:8983"
+version: "3.7"
+volumes:
+  nfsmountsolr:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=host.docker.internal,rw,nolock,hard,nointr,nfsvers=3
+      device: ":/System/Volumes/Data/Users/max2thousand/www/solr7"
+services:
+  solr:
+    build: .
+    container_name: solr7
+    network_mode: bridge
+    volumes:
+      - "nfsmountsolr:/opt/solr/server/solr"
+    ports:
+      - "8985:8983"

@@ -4,9 +4,8 @@ volumes:
     driver: local
     driver_opts:
       type: nfs
-      o: addr=host.docker.internal,rw,nolock,hard,nointr,nfsvers=4
-      device: ":/Users/max2thousand/www/mariadb"
-      com.docker.owner: "999:999"
+      o: addr=host.docker.internal,rw,nolock,hard,nointr,nfsvers=3
+      device: ":/System/Volumes/Data/Users/max2thousand/www/mariadb"
 services:
   mariadb:
     build: .

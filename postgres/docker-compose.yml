@@ -4,22 +4,22 @@ volumes:
     driver: local
     driver_opts:
       type: nfs
-      o: addr=host.docker.internal,rw,nolock,hard,nointr,nfsvers=4
-      device: ":/Users/max2thousand/www/postgres/logs"
+      o: addr=host.docker.internal,rw,nolock,hard,nointr,nfsvers=3
+      device: ":/System/Volumes/Data/Users/max2thousand/www/postgres/logs"
 
   nfsmountpostgres2:
     driver: local
     driver_opts:
       type: nfs
-      o: addr=host.docker.internal,rw,nolock,hard,nointr,nfsvers=4
-      device: ":/Users/max2thousand/www/postgres/backups"
+      o: addr=host.docker.internal,rw,nolock,hard,nointr,nfsvers=3
+      device: ":/System/Volumes/Data/Users/max2thousand/www/postgres/backups"
 
   nfsmountpostgres3:
     driver: local
     driver_opts:
       type: nfs
-      o: addr=host.docker.internal,rw,nolock,hard,nointr,nfsvers=4
-      device: ":/Users/max2thousand/www/postgres/data"
+      o: addr=host.docker.internal,rw,nolock,hard,nointr,nfsvers=3
+      device: ":/System/Volumes/Data/Users/max2thousand/www/postgres/data"
 services:
   postgres_postgis:
     restart: always

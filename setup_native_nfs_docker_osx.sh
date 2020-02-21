@@ -50,7 +50,7 @@ G=`id -g`
 sudo chown -R "$U":"$G" .
 
 echo "== Setting up nfs..."
-LINE="/Users/max2thousand/www -alldirs -mapall=$U:$G localhost"
+LINE="/System/Volumes/Data/Users/max2thousand/www -alldirs -mapall=$U:$G localhost"
 FILE=/etc/exports
 sudo cp /dev/null $FILE
 grep -qF -- "$LINE" "$FILE" || sudo echo "$LINE" | sudo tee -a $FILE > /dev/null

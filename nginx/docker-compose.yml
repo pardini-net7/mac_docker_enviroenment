@@ -4,8 +4,8 @@ volumes:
     driver: local
     driver_opts:
       type: nfs
-      o: addr=host.docker.internal,rw,nolock,hard,nointr,nfsvers=4
-      device: ":/Users/max2thousand/www/php71"
+      o: addr=host.docker.internal,rw,nolock,hard,nointr,nfsvers=3
+      device: ":/System/Volumes/Data/Users/max2thousand/www/php71"
 services:
   nginx:
     user: root

@@ -2,6 +2,6 @@ solr:
   build: .
   container_name: solr6
   volumes:
-    - "/Users/max2thousand/www/solr6/:/opt/solr/server/solr"
+    - "/System/Volumes/Data/Users/max2thousand/www/solr6/:/opt/solr/server/solr"
   ports:
     - "8984:8983"
